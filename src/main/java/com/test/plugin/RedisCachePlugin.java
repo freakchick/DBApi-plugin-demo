@@ -10,10 +10,10 @@ import redis.clients.jedis.JedisPool;
 import java.util.List;
 import java.util.Map;
 
-public class RedisCachePlugin implements CachePlugin {
+public class RedisCachePlugin extends CachePlugin {
     @Override
     public void set(ApiConfig apiConfig, Map<String, Object> map, Object data) {
-
+        logger.info("设置缓存");
         Jedis jedis = null;
         try {
             JedisPool pool = JedisUtil.getPool();
@@ -25,7 +25,8 @@ public class RedisCachePlugin implements CachePlugin {
             }
             jedis.hset(key, hashKey, JSON.toJSONString(data));
         } catch (Exception e) {
-            System.out.println(e);
+
+            super.logger.error(e.getMessage(), e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -42,7 +43,7 @@ public class RedisCachePlugin implements CachePlugin {
             String key = "api-" + apiConfig.getId();
             jedis.del(key);
         } catch (Exception e) {
-            System.out.println(e);
+            super.logger.error(e.getMessage(), e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -66,7 +67,7 @@ public class RedisCachePlugin implements CachePlugin {
             List<JSONObject> list = JSON.parseArray(hget, JSONObject.class);
             return list;
         } catch (Exception e) {
-            System.out.println(e);
+            super.logger.error(e.getMessage(), e);
             return null;
         } finally {
             if (jedis != null) {
