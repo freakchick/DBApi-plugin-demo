@@ -29,6 +29,16 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!--他城市的配置文件不打进包，保证安全性-->
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>plugin.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
