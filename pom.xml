@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.jq.dbapi</groupId>
+            <groupId>com.gitee.freakchicken.dbapi</groupId>
             <artifactId>dbapi-plugin</artifactId>
             <version>2.3.0</version>
             <scope>provided</scope>
@@ -30,7 +30,7 @@
 
     <build>
         <resources>
-            <!--他城市的配置文件不打进包，保证安全性-->
+            <!--plugin.properties配置文件不打进jar包，dbApi框架已经自带这个文件-->
             <resource>
                 <directory>src/main/resources/</directory>
                 <filtering>true</filtering>
