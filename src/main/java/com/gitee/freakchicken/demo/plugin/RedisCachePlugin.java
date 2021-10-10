@@ -17,6 +17,10 @@ public class RedisCachePlugin extends CachePlugin {
 
     JedisPool pool;
 
+    public void testCollection(){
+        Jedis resource = pool.getResource();
+    }
+
     @Override
     public void init() {
         JedisPoolConfig jcon = new JedisPoolConfig();
@@ -24,20 +28,25 @@ public class RedisCachePlugin extends CachePlugin {
         jcon.setMaxIdle(50);
         jcon.setTestOnBorrow(true);
         jcon.setTestOnReturn(true);
-        String password = null;
-        if (StringUtils.isNoneBlank(PluginConf.getKey("RedisCachePlugin.password"))) {
-            password = PluginConf.getKey("RedisCachePlugin.password");
+        String password = PluginConf.getKey("RedisCachePlugin.password");
+        if (StringUtils.isNotBlank(PluginConf.getKey("RedisCachePlugin.password"))) {
+            this.pool = new JedisPool(jcon, PluginConf.getKey("RedisCachePlugin.ip"),
+                    Integer.parseInt(PluginConf.getKey("RedisCachePlugin.port")), 100,
+                    PluginConf.getKey("RedisCachePlugin.password"),
+                    Integer.parseInt(PluginConf.getKey("RedisCachePlugin.db")));
+        } else {
+            this.pool = new JedisPool(jcon, PluginConf.getKey("RedisCachePlugin.ip"),
+                    Integer.parseInt(PluginConf.getKey("RedisCachePlugin.port")), 100,
+                    null,
+                    Integer.parseInt(PluginConf.getKey("RedisCachePlugin.db")));
         }
-        this.pool = new JedisPool(jcon, PluginConf.getKey("RedisCachePlugin.ip"),
-                Integer.parseInt(PluginConf.getKey("RedisCachePlugin.port")), 100,
-                password,
-                Integer.parseInt(PluginConf.getKey("RedisCachePlugin.db")));
-
         super.logger.info("init jedis pool success");
     }
 
     @Override
     public void set(ApiConfig apiConfig, Map<String, Object> map, Object data) {
+        // redis缓存时间
+        String expireTime = apiConfig.getCachePluginParams();
         super.logger.debug("set data to cache");
         Jedis jedis = null;
         try {
@@ -48,6 +57,10 @@ public class RedisCachePlugin extends CachePlugin {
                 hashKey += o.toString() + "-";
             }
             jedis.hset(key, hashKey, JSON.toJSONString(data));
+            // 设置过期时间，过期时间从插件参数传过来
+            if (StringUtils.isNoneBlank(expireTime)) {
+                jedis.expire(key, Integer.parseInt(expireTime));
+            }
         } catch (Exception e) {
             super.logger.error("设置缓存失败", e);
         } finally {
@@ -71,7 +84,6 @@ public class RedisCachePlugin extends CachePlugin {
                 jedis.close();
             }
         }
-
     }
 
     @Override

@@ -7,7 +7,7 @@
 <dependency>
     <groupId>com.gitee.freakchicken.dbapi</groupId>
     <artifactId>dbapi-plugin</artifactId>
-    <version>2.3.1</version>
+    <version>2.3.2</version>
     <scope>provided</scope>
 </dependency>
 ```

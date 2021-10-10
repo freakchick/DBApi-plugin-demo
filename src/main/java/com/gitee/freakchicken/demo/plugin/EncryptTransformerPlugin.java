@@ -1,9 +1,11 @@
 package com.gitee.freakchicken.demo.plugin;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gitee.freakchicken.dbapi.common.ApiConfig;
 import com.gitee.freakchicken.dbapi.plugin.PluginConf;
 import com.gitee.freakchicken.dbapi.plugin.TransformPlugin;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -12,14 +14,16 @@ import java.util.List;
  */
 public class EncryptTransformerPlugin extends TransformPlugin {
     @Override
-    public Object transform(List<JSONObject> data) {
-        String[] columns = PluginConf.getKey("EncryptTransformer.columns").split(";");
-
-        data.stream().forEach(t -> {
-            for (String column : columns) {
-                t.put(column, DigestUtils.md5Hex(t.getString(column)));
-            }
-        });
+    public Object transform(List<JSONObject> data, ApiConfig config) {
+        String params = config.getTransformPluginParams();
+        if (StringUtils.isNoneBlank(params)) {
+            String[] columns = params.split(";");
+            data.stream().forEach(t -> {
+                for (String column : columns) {
+                    t.put(column, DigestUtils.md5Hex(t.getString(column)));
+                }
+            });
+        }
         return data;
 
     }
