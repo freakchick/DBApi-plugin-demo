@@ -29,10 +29,10 @@ public class RedisCachePlugin extends CachePlugin {
         jcon.setTestOnBorrow(true);
         jcon.setTestOnReturn(true);
         String password = PluginConf.getKey("RedisCachePlugin.password");
-        if (StringUtils.isNotBlank(PluginConf.getKey("RedisCachePlugin.password"))) {
+        if (StringUtils.isNotBlank(password)) {
             this.pool = new JedisPool(jcon, PluginConf.getKey("RedisCachePlugin.ip"),
                     Integer.parseInt(PluginConf.getKey("RedisCachePlugin.port")), 100,
-                    PluginConf.getKey("RedisCachePlugin.password"),
+                    password,
                     Integer.parseInt(PluginConf.getKey("RedisCachePlugin.db")));
         } else {
             this.pool = new JedisPool(jcon, PluginConf.getKey("RedisCachePlugin.ip"),

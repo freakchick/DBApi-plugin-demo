@@ -16,12 +16,11 @@ public class EncryptTransformerPlugin extends TransformPlugin {
     /**
      * sql查询结果数据转换
      * @param data
-     * @param config
+     * @param params 插件局部参数
      * @return
      */
     @Override
-    public Object transform(List<JSONObject> data, ApiConfig config) {
-        String params = config.getTransformPluginParams();
+    public Object transform(List<JSONObject> data, String params) {
         if (StringUtils.isNoneBlank(params)) {
             String[] columns = params.split(";");
             data.stream().forEach(t -> {
@@ -33,4 +32,5 @@ public class EncryptTransformerPlugin extends TransformPlugin {
         return data;
 
     }
+
 }
