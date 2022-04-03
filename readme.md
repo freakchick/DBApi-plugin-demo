@@ -32,9 +32,9 @@
 # 注意
 > 从DBAPI 3.1.0版本开始，插件编写需要手动注册
 
-在resources目录下新建文件夹META-INF,再在META-INF文件夹下新建services文件夹
+在`resources`目录下新建文件夹`META-INF`,再在`META-INF`文件夹下新建`services` 文件夹
 
-在META-INF/services目录下新建文件com.gitee.freakchicken.dbapi.plugin.CachePlugin，并在此文件中填写编写的缓存插件的java类名
+在`META-INF/services`目录下新建文件`com.gitee.freakchicken.dbapi.plugin.CachePlugin`，并在此文件中填写编写的缓存插件的java类名
 
-在META-INF/services目录下新建文件com.gitee.freakchicken.dbapi.plugin.TransformPlugin，并在此文件中填写编写的数据转换插件的java类名
+在`META-INF/services`目录下新建文件`com.gitee.freakchicken.dbapi.plugin.TransformPlugin`，并在此文件中填写编写的数据转换插件的java类名
 
