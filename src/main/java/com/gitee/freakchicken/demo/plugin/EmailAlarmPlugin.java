@@ -34,7 +34,7 @@ public class EmailAlarmPlugin extends AlarmPlugin {
      */
     @Override
     public String getName() {
-        return null;
+        return "demo plugin";
     }
 
     /**
@@ -44,7 +44,7 @@ public class EmailAlarmPlugin extends AlarmPlugin {
      */
     @Override
     public String getDescription() {
-        return null;
+        return "demo plugin description";
     }
 
     /**
@@ -54,6 +54,6 @@ public class EmailAlarmPlugin extends AlarmPlugin {
      */
     @Override
     public String getParamDescription() {
-        return null;
+        return "demo plugin param description";
     }
 }
