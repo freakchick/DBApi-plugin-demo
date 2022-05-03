@@ -109,4 +109,34 @@ public class RedisCachePlugin extends CachePlugin {
             }
         }
     }
+
+    /**
+     * 插件名称，用于在页面上显示，提示用户
+     *
+     * @return
+     */
+    @Override
+    public String getName() {
+        return "redis缓存插件";
+    }
+
+    /**
+     * 插件功能描述，用于在页面上显示，提示用户
+     *
+     * @return
+     */
+    @Override
+    public String getDescription() {
+        return "缓存到redis";
+    }
+
+    /**
+     * 插件参数描述，用于在页面上显示，提示用户
+     *
+     * @return
+     */
+    @Override
+    public String getParamDescription() {
+        return "插件参数请填写redis缓存时效时间，如果不填写表示永久缓存";
+    }
 }

@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>dbapi-plugin-demo</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.gitee.freakchicken.dbapi</groupId>
             <artifactId>dbapi-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <scope>provided</scope>  <!--如果开发过程中要在此项目内测试，注释掉这行-->
         </dependency>
 
