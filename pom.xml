@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.gitee.freakchicken.dbapi</groupId>
             <artifactId>dbapi-plugin</artifactId>
-            <version>3.1.1</version>
+            <version>4.0.0-beta</version>
             <scope>provided</scope>  <!--如果开发过程中要在此项目内测试，注释掉这行-->
         </dependency>
 

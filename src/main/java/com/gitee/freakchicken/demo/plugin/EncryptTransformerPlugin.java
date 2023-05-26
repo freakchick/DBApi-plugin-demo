@@ -18,24 +18,25 @@ public class EncryptTransformerPlugin extends TransformPlugin {
     }
 
     /**
-     * sql查询结果数据转换
-     * @param data
-     * @param params 插件局部参数
+     * MD5加密
+     * @param data             执行器执行后返回的结果数据
+     * @param localPluginParam 插件的局部参数
      * @return
      */
     @Override
-    public Object transform(List<JSONObject> data, String params) {
-        if (StringUtils.isNoneBlank(params)) {
-            String[] columns = params.split(";");
-            data.stream().forEach(t -> {
+    public Object transform(Object data, String localPluginParam) {
+        List<JSONObject> list = (List<JSONObject>) data;
+        if (StringUtils.isNoneBlank(localPluginParam)) {
+            String[] columns = localPluginParam.split(";");
+            list.stream().forEach(t -> {
                 for (String column : columns) {
                     t.put(column, DigestUtils.md5Hex(t.getString(column)));
                 }
             });
         }
-        return data;
-
+        return list;
     }
+
 
     /**
      * 插件名称，用于在页面上显示，提示用户

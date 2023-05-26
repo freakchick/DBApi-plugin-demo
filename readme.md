@@ -12,7 +12,7 @@
 <dependency>
     <groupId>com.gitee.freakchicken.dbapi</groupId>
     <artifactId>dbapi-plugin</artifactId>
-    <version>3.1.1</version>
+    <version>4.0.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -28,6 +28,7 @@
 | 2.3.2 | 2.3.2 |
 | 3.0.0 | 3.0.0 |
 | 3.1.1 - 3.2.0 | 3.1.1 |
+| 4.0.0 | 4.0.0|
 
 ## 注意
 > 从DBAPI 3.1.1版本开始，插件编写需要手动注册
@@ -40,3 +41,4 @@
 
 在`META-INF/services`目录下新建文件`com.gitee.freakchicken.dbapi.plugin.AlarmPlugin`，并在此文件中填写编写的告警插件的java类名
 
+在`META-INF/services`目录下新建文件`com.gitee.freakchicken.dbapi.plugin.GlobalTransformPlugin`，并在此文件中填写编写的全局数据转换插件的java类名

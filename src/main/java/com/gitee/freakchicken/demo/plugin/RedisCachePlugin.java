@@ -17,7 +17,7 @@ public class RedisCachePlugin extends CachePlugin {
 
     JedisPool pool;
 
-    public void testCollection(){
+    public void testCollection() {
         Jedis resource = pool.getResource();
     }
 
@@ -44,16 +44,16 @@ public class RedisCachePlugin extends CachePlugin {
     }
 
     @Override
-    public void set(ApiConfig apiConfig, Map<String, Object> map, Object data) {
+    public void set(ApiConfig apiConfig, Map<String, Object> requestParams, Object data, String localPluginParam) {
         // redis缓存时间
-        String expireTime = apiConfig.getCachePluginParams();
+        String expireTime = localPluginParam;
         super.logger.debug("set data to cache");
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
             String key = "api-" + apiConfig.getId();
             String hashKey = "";
-            for (Object o : map.values()) {
+            for (Object o : requestParams.values()) {
                 hashKey += o.toString() + "-";
             }
             jedis.hset(key, hashKey, JSON.toJSONString(data));
@@ -71,11 +71,11 @@ public class RedisCachePlugin extends CachePlugin {
     }
 
     @Override
-    public void clean(ApiConfig apiConfig) {
+    public void clean(ApiConfig config, String localPluginParam) {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            String key = "api-" + apiConfig.getId();
+            String key = "api-" + config.getId();
             jedis.del(key);
         } catch (Exception e) {
             super.logger.error(e.getMessage(), e);
@@ -87,14 +87,14 @@ public class RedisCachePlugin extends CachePlugin {
     }
 
     @Override
-    public Object get(ApiConfig apiConfig, Map<String, Object> map) {
+    public Object get(ApiConfig config, Map<String, Object> requestParams, String localPluginParam) {
         super.logger.debug("get data from cache");
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            String key = "api-" + apiConfig.getId();
+            String key = "api-" + config.getId();
             String hashKey = "";
-            for (Object o : map.values()) {
+            for (Object o : requestParams.values()) {
                 hashKey += o.toString() + "-";
             }
             String hget = jedis.hget(key, hashKey);
