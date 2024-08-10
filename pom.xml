@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>dbapi-plugin-demo</artifactId>
-    <version>3.1.1</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
+            <version>3.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
